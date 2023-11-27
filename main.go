@@ -7,15 +7,15 @@ import (
 
 func main() {
 	//var newGraph = dk.HighLevelGraph[int]{}
-	var newGraph = dk.NewGraph[int]()
+	var newGraph = dk.NewGraph[int, string]()
 
-	type edges[T dk.Number] struct {
-		fromNode string
-		toNode   string
+	type edges[T dk.Number, TN dk.Ordered] struct {
+		fromNode TN
+		toNode   TN
 		weight   T
 	}
 
-	var edgesContainer = []edges[int]{
+	var edgesContainer = []edges[int, string]{
 		{"X", "A", 7},
 		{"A", "B", 3},
 		{"A", "D", 4},

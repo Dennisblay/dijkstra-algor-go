@@ -18,33 +18,50 @@ type Number interface {
 	types.Float | types.Integer
 }
 
-type NodePair [2]string
-
-type HighLevelGraph[T Number] struct {
-	edges   map[string][]string
-	weights map[NodePair]T // weights = {['A', 'B']: 2}
+type Ordered interface {
+	types.Ordered
 }
 
-func NewGraph[T Number]() *HighLevelGraph[T] {
-	return &HighLevelGraph[T]{}
+type NodePair[TN Ordered] [2]TN
+
+type NodeAndWeight[T Ordered] struct {
+	node *Node[T]
 }
 
-func (hlg *HighLevelGraph[T]) AddEdge(fromNode, toNode string, weight T) {
+type Node[T Ordered] struct {
+	key T
+}
+
+type HighLevelGraph[T Number, TNode Ordered] struct {
+	edges   map[TNode][]TNode     // Ordered types Number, String..
+	weights map[NodePair[TNode]]T // weights = {['A', 'B']: 2}
+}
+
+func NewGraph[T Number, TNode Ordered]() *HighLevelGraph[T, TNode] {
+	return &HighLevelGraph[T, TNode]{}
+}
+
+func (hlg *HighLevelGraph[T, TN]) AddEdge(fromNode, toNode TN, weight T) {
 	if hlg.edges == nil {
-		hlg.edges = make(map[string][]string)
+		hlg.edges = make(map[TN][]TN)
 	}
 	if hlg.weights == nil {
-		hlg.weights = make(map[NodePair]T)
+		hlg.weights = make(map[NodePair[TN]]T)
 	}
 	hlg.edges[fromNode] = append(hlg.edges[fromNode], toNode)
 	hlg.edges[toNode] = append(hlg.edges[toNode], fromNode)
-	hlg.weights[NodePair{fromNode, toNode}] = weight
+	hlg.weights[NodePair[TN]{fromNode, toNode}] = weight
 }
 
-func (hlg *HighLevelGraph[T]) GetEdges() map[string][]string {
+func (hlg *HighLevelGraph[T, TN]) GetEdges() map[TN][]TN {
 	return hlg.edges
 }
 
-func (hlg *HighLevelGraph[T]) GetWeights() map[NodePair]T {
+func (hlg *HighLevelGraph[T, TN]) GetWeights() map[NodePair[TN]]T {
 	return hlg.weights
+}
+
+func Dijkstra[T Number, TN Ordered](graph *HighLevelGraph[T, TN], initial, end TN) {
+	//  shortest paths is a map of nodes
+	//  whose value is a tuple of (previous node, weight)
 }
