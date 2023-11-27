@@ -7,7 +7,7 @@ import (
 /*
 	HighLevelGraph
 
-edges is a dict of all possible next nodes
+edges is a map of all possible next nodes
 
 	e.g. {'X': ['A', 'B', 'C', 'E'], ...}
 	weights has all the weights between two nodes,
