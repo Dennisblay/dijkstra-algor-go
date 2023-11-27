@@ -25,6 +25,10 @@ type HighLevelGraph[T Number] struct {
 	weights map[NodePair]T // weights = {['A', 'B']: 2}
 }
 
+func NewGraph[T Number]() *HighLevelGraph[T] {
+	return &HighLevelGraph[T]{}
+}
+
 func (hlg *HighLevelGraph[T]) AddEdge(fromNode, toNode string, weight T) {
 	if hlg.edges == nil {
 		hlg.edges = make(map[string][]string)

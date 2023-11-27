@@ -6,7 +6,8 @@ import (
 )
 
 func main() {
-	var newGraph = dk.HighLevelGraph[int]{}
+	//var newGraph = dk.HighLevelGraph[int]{}
+	var newGraph = dk.NewGraph[int]()
 
 	type edges[T dk.Number] struct {
 		fromNode string
