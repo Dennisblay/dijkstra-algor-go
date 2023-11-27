@@ -39,14 +39,7 @@ func main() {
 		newGraph.AddEdge(edge.fromNode, edge.toNode, edge.weight)
 	}
 
-	//fmt.Println(newGraph.GetWeights())
+	fmt.Println(newGraph.GetWeights())
 	fmt.Println(newGraph.GetEdges())
 
-	//test()
-}
-
-func test() {
-	dict := make(map[string]int)
-	dict["Dennis"] = 22
-	fmt.Println(dict)
 }
